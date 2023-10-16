@@ -1,0 +1,16 @@
+fixed application.yaml is an issue
+
+JWT using RSA key pair
+to generate key pair, go to resources folder
+openssl genpkey -algorithm RSA -out private_key.pem
+openssl rsa -pubout -in private_key.pem -out public_key.pem
+
+to be included in README.md
+Project structure:
+    Application
+        Config
+        User
+            Controller (contains Controller, Record)
+            Service
+    Domain
+        User (contains Entity, Repository, View Object)
