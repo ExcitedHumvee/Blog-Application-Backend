@@ -103,9 +103,6 @@ public class SecurityConfiguration {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cors);
 
-        // Allow access to H2 console
-        source.registerCorsConfiguration("/h2-console/**", cors);
-
         return source;
     }
 

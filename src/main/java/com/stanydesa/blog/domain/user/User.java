@@ -41,7 +41,7 @@ public class User {
 
     @CreatedDate
     @Builder.Default
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Transient
