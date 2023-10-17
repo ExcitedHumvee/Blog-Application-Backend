@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.NoSuchElementException;
 
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice//global exception handler for all controllers in the application
 public class ExceptionHandleInterceptor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ProblemDetail handle(IllegalArgumentException e) {
@@ -38,6 +38,7 @@ public class ExceptionHandleInterceptor extends ResponseEntityExceptionHandler {
         return ProblemDetail.forStatusAndDetail(HttpStatus.UNAUTHORIZED, e.getMessage());
     }
 
+    // fallback for any unhandled exceptions
     @ExceptionHandler(Exception.class)
     public ProblemDetail handle(Exception e) {
         log.error(e.getMessage(), e);

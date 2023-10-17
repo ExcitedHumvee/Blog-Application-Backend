@@ -13,15 +13,16 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Builder
+@Builder//build is better than setter because more readability, u dont need many set() arguments
+//also in builder, its immutable, its creates new instance after each modification, more safe
 @Table(name = "users")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class)//used in conjunction with @CreatedDate to automatically populate createdDate
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
     @Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.UUID)//Universally Unique Identifier
     private UUID id;
 
     @Column(length = 30, nullable = false, unique = true)
@@ -44,7 +45,7 @@ public class User {
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Transient
+    @Transient//field should not be persisted to the database
     private String token;
 
     @Transient

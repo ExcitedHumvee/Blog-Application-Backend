@@ -11,7 +11,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ExceptionHandleFilter extends OncePerRequestFilter {
+public class ExceptionHandleFilter extends OncePerRequestFilter {//filter is only executed once per request
     private final ExceptionHandleInterceptor delegator;
 
     @Override

@@ -20,13 +20,13 @@ public class BearerTokenProvider {
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("https://realworld.io")
                 .issuedAt(now)
-                .expiresAt(now.plusSeconds(300))
+                .expiresAt(now.plusSeconds(60*60*24))
                 .subject(user.getId().toString())
                 .build();
 
         JwtEncoderParameters parameters = JwtEncoderParameters.from(claimsSet);
         String token = jwtEncoder.encode(parameters).getTokenValue();
-        log.debug("Generated bearer token with user id `{}`: {}", user.getId(), token);
+        log.info("Generated bearer token with user id `{}`: {}", user.getId(), token);
 
         return token;
     }

@@ -25,7 +25,6 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthen
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -39,10 +38,14 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
+    //comprehensive security policy for app
+    //authentication, authorization, exception handling strategies
     @Bean
     public JwtEncoder jwtEncoder(
             @Value("${security.key.public}") RSAPublicKey rsaPublicKey,
             @Value("${security.key.private}") RSAPrivateKey rsaPrivateKey) {
+        //Asymmetric encryption
+        //Nimbus JOSE + JWT library to build an RSA key pair
         JWK jwk = new RSAKey.Builder(rsaPublicKey).privateKey(rsaPrivateKey).build();
         JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwks);
@@ -50,6 +53,7 @@ public class SecurityConfiguration {
 
     @Bean
     public JwtDecoder jwtDecoder(@Value("${security.key.public}") RSAPublicKey rsaPublicKey) {
+        //only public key recquired to decode
         return NimbusJwtDecoder.withPublicKey(rsaPublicKey).build();
     }
 
@@ -62,15 +66,18 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, ExceptionHandleFilter exceptionHandleFilter)
             throws Exception {
         return http.httpBasic(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .cors(SecurityConfigurerAdapter::and)
+                .csrf(AbstractHttpConfigurer::disable)//disables HTTP basic authentication, Cross-Site Request Forgery
+                //csrf means attacker will create a new url and through social engineering will get user to click on it
+                //user has session cookies so url will work
+                //csrf protection: server sends new token every session to html form not cookies
+                .formLogin(AbstractHttpConfigurer::disable)// we are handling login ourselves using OAuth2.0, JWT
+                .cors(SecurityConfigurerAdapter::and)//Cross-Origin Resource Sharing
                 .authorizeHttpRequests(requests ->
                         requests
                                 .requestMatchers(HttpMethod.POST,
                                         "/api/users",
                                         "/api/users/login")
-                                .permitAll()
+                                .permitAll()//unrestricted access
                                 .requestMatchers(
                                         HttpMethod.GET,
                                         "/api/articles/{slug}/comments",
@@ -78,14 +85,15 @@ public class SecurityConfiguration {
                                         "/api/articles",
                                         "/api/profiles/{username}",
                                         "/api/tags")
-                                .permitAll()
+                                .permitAll()//unrestricted access
+
                                 .anyRequest()
                                 .authenticated())
-                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)//configures spring application as OAuth2 resource server using JWT for authentication
+                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))//application won't create or use HTTP sessions
                 .exceptionHandling(
                         handler -> handler.authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
-                                .accessDeniedHandler(new BearerTokenAccessDeniedHandler()))
+                                .accessDeniedHandler(new BearerTokenAccessDeniedHandler()))//exception handling for authentication errors and access denied errors.
                 .addFilterBefore(exceptionHandleFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -93,19 +101,17 @@ public class SecurityConfiguration {
     //new
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        //configures CORS for the Spring application by allowing requests from any origin, any method, and with any headers. Additionally, it specifies that credentials should be included in cross-origin requests. The configuration is applied to all paths in the application (/**)
         CorsConfiguration cors = new CorsConfiguration();
 
-        cors.setAllowedOriginPatterns(List.of("*"));
-        cors.setAllowedMethods(List.of("*"));
-        cors.setAllowedHeaders(List.of("*"));
-        cors.setAllowCredentials(true);
+        cors.setAllowedOriginPatterns(List.of("*"));//Allows requests from any origin
+        cors.setAllowedMethods(List.of("*"));//Allows any HTTP method GET, POST, PUT, DELETE, etc.
+        cors.setAllowedHeaders(List.of("*"));//Allows any HTTP headers in the request
+        cors.setAllowCredentials(true);//Specifies that the browser should include credentials (e.g., cookies, HTTP authentication) when making the actual request
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", cors);
+        source.registerCorsConfiguration("/**", cors);//the CORS configuration applies to all paths in the application
 
         return source;
     }
-
-
-
 }

@@ -15,7 +15,10 @@ import java.time.format.DateTimeFormatter;
 @Configuration
 public class ObjectMapperConfiguration {
     //without this class, it is not possible to read request body parameters via POST
+    //customizes the behavior of the Jackson ObjectMapper, which is used for JSON serialization and deserialization
     @Bean
+    //backbone of Spring Application
+    //managed by the Spring container
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
         return builder.modules(iso8601SerializeModule())
                 .featuresToEnable(DeserializationFeature.UNWRAP_ROOT_VALUE)
