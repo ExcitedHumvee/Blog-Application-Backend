@@ -20,7 +20,7 @@ public class UserService {
     private final BearerTokenProvider bearerTokenProvider;
 
     @Transactional
-    public User signUp(SignUpRequest request) {
+    public User signUp(SignUpRequest request) {//2
         if (userRepository.existsByEmail(request.email())) {
             throw new IllegalArgumentException("Email `%s` is already exists.".formatted(request.email()));
         }
@@ -32,23 +32,25 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    @Transactional(readOnly = true)
-    public UserVO login(LoginRequest request) {
-        return userRepository
-                .findByEmail(request.email())
-                .filter(user -> passwordEncoder.matches(request.password(), user.getPassword()))
-                .map(user -> {
-                    String token = bearerTokenProvider.createBearerToken(user);
-                    return new UserVO(user.setToken(token));
-                })
-                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
-    }
-
-    private User createNewUser(SignUpRequest request) {
+    private User createNewUser(SignUpRequest request) {//3
         return User.builder()
                 .email(request.email())
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
                 .build();
+    }
+
+    @Transactional(readOnly = true)//If something fails within a transaction, all will be rolled back. Transaction means all data will be committed or rolled back
+    public UserVO login(LoginRequest request) {//5
+        return userRepository
+                .findByEmail(request.email())
+                //check if the user with the given email exists and if the provided password matches the stored password
+                .filter(user -> passwordEncoder.matches(request.password(), user.getPassword()))
+                //token generation
+                .map(user -> {
+                    String token = bearerTokenProvider.createBearerToken(user);
+                    return new UserVO(user.setToken(token));
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
     }
 }
