@@ -52,4 +52,10 @@ public class UserController {
         UserVO userVO = new UserVO(me);
         return new UserRecord(userVO);
     }
+
+    @PutMapping("/api/user")
+    public UserRecord updateCurrentUser(User me, @RequestBody UpdateUserRequest request) {
+        UserVO userVO = userService.update(me, request);
+        return new UserRecord(userVO);
+    }
 }

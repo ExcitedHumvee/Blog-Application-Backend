@@ -37,3 +37,10 @@ curl --location 'http://localhost:8080/api/user' \
 --header 'Content-Type: application/json' \
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6ImY4M2NlYjQwLTQwY2EtNDNkZS1hNTE5LTVjMTRiNmQ5NTFmZCIsImV4cCI6MTY5Nzc4ODQ1MCwiaWF0IjoxNjk3NzAyMDUwfQ.OfqAEIIQog6bP0yEhuqz98mm1vbUtyx7Tk_pJYCUUD4DblDxyjj8eenMHZsL9KpOLo779ErK3KJa043uD6kWEcrbpNOLzs0orBrwjH9cMb532mK4TURy_WwJEshg3R2AyNxME4LBkNkj3pItyjN2jDbuqi0IKO1YXgbwEsjAirlzVGjUfIVSgNmR_xyVoTCWSlg0wtYdwj4dXkIXoVgX3k09y2GhYeCz-IXSVuv6mjXsreendWWeo-R0VLw2aJcpIiZuuCe04Km_krvyJFzHJKyeMO9fIM7QvX04izJnTeYSVZcyzjUiB9OVC7mHWKDNT-L--7NNMYzMLweaW3-7TA'
+
+UPDATE user
+curl --location --request PUT 'http://localhost:8080/api/user' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6ImY4M2NlYjQwLTQwY2EtNDNkZS1hNTE5LTVjMTRiNmQ5NTFmZCIsImV4cCI6MTY5Nzc4ODQ1MCwiaWF0IjoxNjk3NzAyMDUwfQ.OfqAEIIQog6bP0yEhuqz98mm1vbUtyx7Tk_pJYCUUD4DblDxyjj8eenMHZsL9KpOLo779ErK3KJa043uD6kWEcrbpNOLzs0orBrwjH9cMb532mK4TURy_WwJEshg3R2AyNxME4LBkNkj3pItyjN2jDbuqi0IKO1YXgbwEsjAirlzVGjUfIVSgNmR_xyVoTCWSlg0wtYdwj4dXkIXoVgX3k09y2GhYeCz-IXSVuv6mjXsreendWWeo-R0VLw2aJcpIiZuuCe04Km_krvyJFzHJKyeMO9fIM7QvX04izJnTeYSVZcyzjUiB9OVC7mHWKDNT-L--7NNMYzMLweaW3-7TA' \
+--data-raw '{"user":{"email":"xyz@hgv.com"}}'

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -82,5 +83,52 @@ public class User {
 
     public static User anonymous() {
         return User.builder().id(null).anonymous(true).build();
+    }
+
+    public void updateEmail(String email) {
+        if (email == null || email.isBlank() || this.email.equals(email)) {
+            return;
+        }
+
+        // Note: You can add some more validations here if you want. (ex. regex)
+        this.email = email;
+    }
+
+    public void updateUsername(String username) {
+        if (username == null || username.isBlank() || this.username.equals(username)) {
+            return;
+        }
+
+        // Note: You can add some more validations here if you want. (ex. regex)
+        this.username = username;
+    }
+
+    public void updatePassword(PasswordEncoder passwordEncoder, String plaintext) {
+        if (passwordEncoder == null) {
+            return;
+        }
+
+        if (plaintext == null || plaintext.isBlank()) {
+            return;
+        }
+
+        // Note: You can add some more validations here if you want. (ex. regex)
+        this.password = passwordEncoder.encode(plaintext);
+    }
+
+    public void updateBio(String bio) {
+        if (bio == null || bio.isBlank()) {
+            return;
+        }
+
+        this.bio = bio;
+    }
+
+    public void updateImage(String imageUrl) {
+        if (imageUrl != null && imageUrl.isBlank()) {
+            return;
+        }
+
+        this.image = imageUrl;
     }
 }

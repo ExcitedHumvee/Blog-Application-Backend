@@ -3,6 +3,7 @@ package com.stanydesa.blog.application.user.service;
 import com.stanydesa.blog.application.config.BearerTokenProvider;
 import com.stanydesa.blog.application.user.controller.LoginRequest;
 import com.stanydesa.blog.application.user.controller.SignUpRequest;
+import com.stanydesa.blog.application.user.controller.UpdateUserRequest;
 import com.stanydesa.blog.domain.user.User;
 import com.stanydesa.blog.domain.user.UserRepository;
 import com.stanydesa.blog.domain.user.UserVO;
@@ -52,5 +53,28 @@ public class UserService {
                     return new UserVO(user.setToken(token));
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+    }
+
+    @Transactional
+    public UserVO update(User user, UpdateUserRequest request) {
+        String email = request.email();
+        if (!user.getEmail().equals(email) && userRepository.existsByEmail(email)) {
+            throw new IllegalArgumentException("Email `%s` is already exists.".formatted(email));
+        }
+
+        String username = request.username();
+        if (!user.getUsername().equals(username) && userRepository.existsByUsername(username)) {
+            throw new IllegalArgumentException("Username `%s` is already exists.".formatted(request.username()));
+        }
+
+        user.updateEmail(email);
+        user.updateUsername(username);
+        user.updatePassword(passwordEncoder, request.password());
+        user.updateBio(request.bio());
+        user.updateImage(request.image());
+        //// Save the changes to the database explicitly not recquired because of @Transactional
+        //    userRepository.save(user);
+
+        return new UserVO(user);
     }
 }
