@@ -17,8 +17,14 @@ import java.util.UUID;
 //also in builder, its immutable, its creates new instance after each modification, more safe
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)//used in conjunction with @CreatedDate to automatically populate createdDate
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)//By setting the access level of the all-args constructor to private, the class encapsulates its internal details.
+//External classes or components are discouraged from directly creating instances of User using the all-args constructor.
+// Instead, they are expected to use the builder pattern or other provided methods
+@NoArgsConstructor(access = AccessLevel.PROTECTED)//Hibernate/ORM compatibility
+//RM frameworks use reflection to instantiate objects and populate their fields. A no-args constructor, often with at least protected visibility, is needed for this purpose.
+//Making the no-args constructor protected allows subclasses to call it
+//Inheritance is a common practice in JPA entities, and subclasses may need to initialize their state or invoke the no-args constructor during their own construction process
+//By setting the access level to protected, the class retains control over how it is instantiated. It signals that the no-args constructor is intended for use by subclasses and the ORM framework
 public class User {
     @Id
     @Column(name = "user_id")
@@ -50,6 +56,9 @@ public class User {
 
     @Transient
     @Builder.Default
+    //way of representing User if not logged in
+    //default permissions
+    //track these users
     private boolean anonymous = false;
 
     public User setToken(String token) {
@@ -69,5 +78,9 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(this.id);
+    }
+
+    public static User anonymous() {
+        return User.builder().id(null).anonymous(true).build();
     }
 }

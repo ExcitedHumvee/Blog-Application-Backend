@@ -1,5 +1,3 @@
-fixed application.yaml is an issue
-
 JWT using RSA key pair
 to generate key pair, go to resources folder
 openssl genpkey -algorithm RSA -out private_key.pem
@@ -21,3 +19,15 @@ TO DO:
     swagger integration
     test cases
 
+ROUTES:
+POST to register
+curl --location 'http://localhost:8080/api/users' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--data-raw '{"user":{"email":"tred3@t.com", "password":"password", "username":"t3e2d"}}'
+
+POST to login
+curl --location 'http://localhost:8080/api/users/login' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--data-raw '{"user":{"email":"tred3@t.com", "password":"password"}}'
