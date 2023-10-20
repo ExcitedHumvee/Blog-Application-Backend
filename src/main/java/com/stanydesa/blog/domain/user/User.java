@@ -52,6 +52,19 @@ public class User {
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    //FetchType is LAZY or EAGER, in EAGER, the when you load an entity, JPA will automatically fetch its associated entities or collections from the database as well
+    //LAZY, the associated entity or collection should be loaded lazily, i.e., only when it is explicitly accessed
+    //CascadeType ALL means PERSIST, MERGE, REMOVE, REFRESH, DETACH
+    //when user is persisted (all Follower will also be persisted), merge means update, refresh means reloaded, detach is deleted
+    //Refresh, suppose some other part of the system is updating user, then state of user will have to get updated (usual select statement)
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "from", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> following = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "to", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Follow> follower = new HashSet<>();
+
     @Transient//field should not be persisted to the database
     private String token;
 
@@ -130,5 +143,25 @@ public class User {
         }
 
         this.image = imageUrl;
+    }
+
+    public boolean isAlreadyFollowing(User target) {
+        if (target == null || target.isAnonymous()) {
+            throw new IllegalArgumentException("target must not be null or anonymous");
+        }
+
+        Follow follow = new Follow(this, target);
+        return this.following.stream().anyMatch(follow::equals);//OR (f -> follow.equals(f)) f is element of the stream
+
+        //OR (below same time complexity)
+//        // Iterate through each Follow object in the set
+//        for (Follow existingFollow : this.following) {
+//            // Check if the current Follow object is equal to the new Follow object
+//            if (existingFollow.equals(follow)) {
+//                return true; // Already following
+//            }
+//        }
+//
+//        return false; // Not following
     }
 }
