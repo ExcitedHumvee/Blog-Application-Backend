@@ -77,7 +77,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.POST,
                                         "/api/users",
                                         "/api/users/login")
-                                .permitAll()//unrestricted access
+                                .permitAll()//unrestricted access POST
                                 .requestMatchers(
                                         HttpMethod.GET,
                                         "/api/articles/{slug}/comments",
@@ -85,7 +85,7 @@ public class SecurityConfiguration {
                                         "/api/articles",
                                         "/api/profiles/{username}",
                                         "/api/tags")
-                                .permitAll()//unrestricted access
+                                .permitAll()//unrestricted access GET
 
                                 .anyRequest()
                                 .authenticated())
