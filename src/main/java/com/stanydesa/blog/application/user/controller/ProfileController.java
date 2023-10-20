@@ -15,6 +15,7 @@ public class ProfileController {
 
     @GetMapping("/api/profiles/{username}")
     public ProfileRecord getProfile(User me, @PathVariable("username") String target) {
+        //Authentication not required, User can be anonymous
         ProfileVO profile = profileService.getProfile(me, target);
         return new ProfileRecord(profile);
     }
