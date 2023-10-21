@@ -43,7 +43,25 @@ public class ArticleFavorite {
 
     @Override
     public boolean equals(Object o) {
-        return o instanceof ArticleFavorite other
+//        // Check if the compared object is the same instance as this one
+//        if (this == o) {
+//            return true;
+//        }
+//
+//        // Check if the compared object is null or of a different class
+//        if (o == null || getClass() != o.getClass()) {
+//            return false;
+//        }
+//
+//        // Cast the compared object to ArticleFavorite
+//        ArticleFavorite other = (ArticleFavorite) o;
+//
+//        // Compare the individual fields for equality
+//        return Objects.equals(this.id, other.id) &&
+//                Objects.equals(this.user, other.user) &&
+//                Objects.equals(this.article, other.article);
+
+        return o instanceof ArticleFavorite other// new Java 16, automatically other=o
                 && Objects.equals(this.id, other.id)
                 && Objects.equals(this.user, other.user)
                 && Objects.equals(this.article, other.article);
