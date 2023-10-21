@@ -60,10 +60,18 @@ public class Article {//TODO analyze the mapping between Tables
         this.author = author;
         this.description = description;
         this.title = title;
-        this.slug = "SLUG";
+        this.slug = createSlugBy(title);
         this.content = content;
         this.favoriteUsers = new HashSet<>();
         this.includeTags = new HashSet<>();
         this.createdAt = LocalDateTime.now();
+    }
+
+    private String createSlugBy(String title) {
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("title must not be null or blank");
+        }
+
+        return title.toLowerCase().replaceAll("\\s+", "-");//replacing all spaces with -
     }
 }
