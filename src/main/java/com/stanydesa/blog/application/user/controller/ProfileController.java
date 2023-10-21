@@ -6,6 +6,7 @@ import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,6 +18,12 @@ public class ProfileController {
     public ProfileRecord getProfile(User me, @PathVariable("username") String target) {
         //Authentication not required, User can be anonymous
         ProfileVO profile = profileService.getProfile(me, target);
+        return new ProfileRecord(profile);
+    }
+
+    @PostMapping("/api/profiles/{username}/follow")
+    public ProfileRecord follow(User me, @PathVariable("username") String target) {
+        ProfileVO profile = profileService.follow(me, target);
         return new ProfileRecord(profile);
     }
 }

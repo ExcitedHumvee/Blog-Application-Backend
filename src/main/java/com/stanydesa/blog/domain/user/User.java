@@ -144,6 +144,15 @@ public class User {
 
         this.image = imageUrl;
     }
+    private void addFollowingToCurrentUser(Follow follow) {
+        this.following.add(follow);
+    }
+
+    private void addFollowerToTargetUser(Follow follow) {
+        follow.getTo().getFollower().add(follow);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public boolean isAlreadyFollowing(User target) {
         if (target == null || target.isAnonymous()) {
@@ -163,5 +172,21 @@ public class User {
 //        }
 //
 //        return false; // Not following
+    }
+
+    public ProfileVO follow(User target) {
+        if (target == null || target.isAnonymous()) {
+            throw new IllegalArgumentException("target must not be null or anonymous");
+        }
+
+        if (isAlreadyFollowing(target)) {
+            return new ProfileVO(this, target);
+        }
+
+        Follow follow = new Follow(this, target);
+        addFollowingToCurrentUser(follow);
+        addFollowerToTargetUser(follow);
+
+        return new ProfileVO(this, target);
     }
 }

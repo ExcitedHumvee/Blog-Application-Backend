@@ -42,6 +42,12 @@ public class Follow {
         this.to = to;
     }
 
+    @PrePersist
+    public void prePersist() {
+        //this is there because whenever Follow object is being created, createdAt is null, which is raising error
+        this.createdAt = LocalDateTime.now();
+    }
+
     @Override
     public boolean equals(Object o) {
         return o instanceof Follow other

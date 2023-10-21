@@ -25,4 +25,10 @@ public class ProfileService {
                 .findByUsername(username)//returns Optional Class
                 .orElseThrow(() -> new NoSuchElementException("User(`%s`) not found".formatted(username)));
     }
+
+    @Transactional
+    public ProfileVO follow(User me, String targetUsername) {
+        User targetUser = findUserByUsername(targetUsername);
+        return me.follow(targetUser);
+    }
 }
