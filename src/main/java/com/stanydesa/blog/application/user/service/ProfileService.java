@@ -31,4 +31,10 @@ public class ProfileService {
         User targetUser = findUserByUsername(targetUsername);
         return me.follow(targetUser);
     }
+
+    @Transactional
+    public ProfileVO unfollow(User me, String targetUsername) {
+        User targetUser = findUserByUsername(targetUsername);
+        return me.unfollow(targetUser);
+    }
 }

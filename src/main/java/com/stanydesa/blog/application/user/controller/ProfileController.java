@@ -4,10 +4,7 @@ import com.stanydesa.blog.application.user.service.ProfileService;
 import com.stanydesa.blog.domain.user.ProfileVO;
 import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +21,12 @@ public class ProfileController {
     @PostMapping("/api/profiles/{username}/follow")
     public ProfileRecord follow(User me, @PathVariable("username") String target) {
         ProfileVO profile = profileService.follow(me, target);
+        return new ProfileRecord(profile);
+    }
+
+    @DeleteMapping("/api/profiles/{username}/follow")
+    public ProfileRecord unfollow(User me, @PathVariable("username") String target) {
+        ProfileVO profile = profileService.unfollow(me, target);
         return new ProfileRecord(profile);
     }
 }

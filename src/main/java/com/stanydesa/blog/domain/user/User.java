@@ -7,10 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -152,6 +149,22 @@ public class User {
         follow.getTo().getFollower().add(follow);
     }
 
+    private boolean isFollowing(Follow follow) {
+        return follow.getTo().equals(this);
+    }
+
+    private Optional<Follow> findFollowing(User target) {
+        return this.following.stream().filter(target::isFollowing).findFirst();
+    }
+
+    private void removeFollowing(Follow follow) {
+        this.following.remove(follow);
+    }
+
+    private void removeFollower(Follow follow) {
+        this.follower.remove(follow);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public boolean isAlreadyFollowing(User target) {
@@ -186,6 +199,26 @@ public class User {
         Follow follow = new Follow(this, target);
         addFollowingToCurrentUser(follow);
         addFollowerToTargetUser(follow);
+
+        return new ProfileVO(this, target);
+    }
+
+    public ProfileVO unfollow(User target) {
+        if (target == null || target.isAnonymous()) {
+            throw new IllegalArgumentException("target must not be null or anonymous");
+        }
+
+//        findFollowing(target).ifPresent(follow -> {
+//            this.removeFollowing(follow);
+//            target.removeFollower(follow);
+//        });
+
+        Optional<Follow> followOptional = findFollowing(target);
+        if (followOptional.isPresent()) {
+            Follow follow = followOptional.get();
+            this.removeFollowing(follow);
+            target.removeFollower(follow);
+        }
 
         return new ProfileVO(this, target);
     }

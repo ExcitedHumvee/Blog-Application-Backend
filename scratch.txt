@@ -57,3 +57,10 @@ curl --location 'http://localhost:8080/api/profiles/t2/follow' \
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6ImM0OTMwZmZjLTkwNjctNGIzNC1iNDljLTU0MjcwNTU2YjlmZSIsImV4cCI6MTY5Nzk2Mjg2OCwiaWF0IjoxNjk3ODc2NDY4fQ.e0hQh_tVsNxWKU35XDoGSPp0E_BsFhO0qjSI9dVdp_1PNTRljTHvBpEXPkCv_DZHO8yIPfWVbTYXMwF8VysWQ7DBKHdglZDQ1a2Cr03_oyuT5pBk_r67oWHef5TWCTQMdoI5UtQTR5FMsNY3rqIjxfb7wVTujBzwJJoFoW-7FcyqM32laLoitONfjcofsGW6feUMpmp8lWTYfZCx-ga2FrHWAnVFVCfJSVK2OrvjVV4GD4TYxOl39qPu9jqFqhuEx0i-84GeE1Cv-ljD-rMyv5IiIJyubzwcfWAGnEWJqnW_bAxwiU11ayEdtlcCn3-I2CC0rua3ICxND7xP1ZzLEA' \
 --data '{"user":{"email":"{{EMAIL}}"}}'
+
+DELETE unfollow profile
+curl --location --request DELETE 'http://localhost:8080/api/profiles/t2/follow' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6ImM0OTMwZmZjLTkwNjctNGIzNC1iNDljLTU0MjcwNTU2YjlmZSIsImV4cCI6MTY5NzkwMDA2NiwiaWF0IjoxNjk3ODEzNjY2fQ.mMVtVzSyObWp2M7LMedEjTqXdcUmQ-Go9DoXaMy19IKmQrT8pm49PHg2OhgXC8C_AyXliKH11zU8ToKXdJY7uOzMWrZ6TM8L1K04LbgCEsONO9gIt-GLxmDqXbofidfyg1ZxlC1S4bQC6BZgn8jyKUvh31p3IFZmG26gf7ANM0OxMYD8usjnKtHzvQUsgvVD_dgQ7-ShhaZRmry8EkJbkI2pVIajzsDWLrUW_ncRYSY_54jHdpSFes-cJRlN5Ct0d5BeElis9ZwcyGobBrC2kAT8-nDs1o5bzc5sxaqOSDJRE0PjDG_GG8fbmGa-5qUONEyVAD4sYLskTdSMEiWOiw' \
+--data ''
