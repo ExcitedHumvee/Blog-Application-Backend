@@ -50,7 +50,7 @@ public class Article {
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @LastModifiedDate//TODO error here
+    @LastModifiedDate
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime updatedAt;
 
