@@ -1,5 +1,6 @@
 package com.stanydesa.blog.domain.user;
 
+import com.stanydesa.blog.domain.article.ArticleFavorite;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -61,6 +62,10 @@ public class User {
     @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "to", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Follow> follower = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ArticleFavorite> favoriteArticles = new HashSet<>();
 
     @Transient//field should not be persisted to the database
     private String token;

@@ -45,6 +45,7 @@ public class Follow {
     @PrePersist
     public void prePersist() {
         //this is there because whenever Follow object is being created, createdAt is null, which is raising error
+        //prePersist: Ensures createdAt is set before persisting
         this.createdAt = LocalDateTime.now();
     }
 

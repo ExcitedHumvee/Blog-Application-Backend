@@ -15,6 +15,67 @@ Project structure:
     Domain (core business logic and data)
         User (contains Entity, Repository, View Object)
 
+DB tables:
+    User:
+        Keys:
+            id: Primary key for the user
+        Relationships:
+            One-to-Many relationship with Follow table
+            One-to-Many relationship with ArticleFavorite table
+    Follow:
+        Keys:
+            id: Composite primary key consisting of fromId and toId
+            from: Foreign key referencing the User table, representing the user who follows
+            to: Foreign key referencing the User table, representing the user who is being followed
+        Relationships:
+            Many-to-One relationship with User table (from and to)
+    Article:
+        Keys:
+            id: Primary key for the article
+            author: Foreign key referencing the User table, representing the author of the article
+        Relationships:
+            Many-to-One relationship with the User table (author)
+            One-to-Many relationship with the ArticleFavorite table (favoriteUsers)
+            One-to-Many relationship with ArticleTag table (includeTags)
+    ArticleFavorite:
+        Keys:
+            id: Composite primary key consisting of userId and articleId
+            user: Foreign key referencing the User table, representing the user who favorited the article
+            article: Foreign key referencing the Article table, representing the article that was favorited    
+        Relationships:
+            Many-to-One relationship with User table (user)
+            Many-to-One relationship with Article table (article)
+    ArticleTag:
+        Keys:
+            id: Composite primary key consisting of articleId and tagId
+            article: Foreign key referencing the Article table, representing the article associated with the tag
+            tag: Foreign key referencing the Tag table, representing the tag associated with the article
+        Relationships:
+            Many-to-One relationship with Article table (article)
+            Many-to-One relationship with Tag table (tag)
+    Tage:
+        Keys:
+            id: Primary key for the tag
+        Relationships:
+Example:
+    Article table:            
+        Article1 by user1
+        Artilce2 by user2
+
+    ArticleTag table:
+        Article1 tag Hyundai
+        Article1 tag Cars
+        Article1 tag Vehicle
+        Article2 tag Jetski
+        Article2 tag SkiDoo
+        Article2 tag Vehicle
+    Tag table:
+        Hyundai
+        Cars
+        Vehicle (unique)
+        Jetski
+        SkiDoo
+
 TO DO:
     swagger integration
     test cases
