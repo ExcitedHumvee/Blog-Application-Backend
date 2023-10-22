@@ -40,6 +40,13 @@ public class ArticleTag {
         this.tag = tag;
     }
 
+    @PrePersist
+    public void prePersist() {
+        //this is there because whenever object is being created, createdAt is null, which is raising error
+        //prePersist: Ensures createdAt is set before persisting
+        this.createdAt = LocalDateTime.now();
+    }
+
     @Override
     public boolean equals(Object o) {
         return o instanceof ArticleTag other
