@@ -125,3 +125,20 @@ curl --location --request DELETE 'http://localhost:8080/api/profiles/t2/follow' 
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6ImM0OTMwZmZjLTkwNjctNGIzNC1iNDljLTU0MjcwNTU2YjlmZSIsImV4cCI6MTY5NzkwMDA2NiwiaWF0IjoxNjk3ODEzNjY2fQ.mMVtVzSyObWp2M7LMedEjTqXdcUmQ-Go9DoXaMy19IKmQrT8pm49PHg2OhgXC8C_AyXliKH11zU8ToKXdJY7uOzMWrZ6TM8L1K04LbgCEsONO9gIt-GLxmDqXbofidfyg1ZxlC1S4bQC6BZgn8jyKUvh31p3IFZmG26gf7ANM0OxMYD8usjnKtHzvQUsgvVD_dgQ7-ShhaZRmry8EkJbkI2pVIajzsDWLrUW_ncRYSY_54jHdpSFes-cJRlN5Ct0d5BeElis9ZwcyGobBrC2kAT8-nDs1o5bzc5sxaqOSDJRE0PjDG_GG8fbmGa-5qUONEyVAD4sYLskTdSMEiWOiw' \
 --data ''
+
+POST create article
+curl --location 'http://localhost:8080/api/articles' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjIzMWJmNmYyLWM3ZWItNGQyMy04NjRlLTBmNmM0Y2JlODI1NCIsImV4cCI6MTY5ODA1MTQwOSwiaWF0IjoxNjk3OTY1MDA5fQ.cHkzKBtIMgj_m4D8BB2GZQC9UR7Wv1uRAg3Iqt96JplR9rEvdiVIAweF2N779US8uZVrVlyPB25ZhcnqQYdl4_Ev7rImY7MFTSbk5zz_2QLDhLdIk0mubF-MhDc18XZsgo1TfXLlcO3HHG7MvPc-tXQzdnHnoC1GOWbhZD23eZ0nHCg0aL_RoMiVCOUyYoOT1w4Rb7gzgVHJuHh9GC_2CW4z3y9QS8NxJnzP8j7Xb-uqSWYMZm3ryIuc5y8Mx8F0gPyTWLF8090Qv6WTg1DLTaGv9xNzxCyOXdN_3EnDBq6eo1-XMeJh1GXryuIFWQjIiHPcldg1QssX0k_gTfPtSw' \
+--data '{
+    "article": {
+        "title": "How to train your dragon",
+        "description": "Ever wonder how?",
+        "body": "Very carefully.",
+        "tagList": [
+            "training",
+            "dragons"
+        ]
+    }
+}'

@@ -1,5 +1,6 @@
 package com.stanydesa.blog.domain.user;
 
+import com.stanydesa.blog.domain.article.Article;
 import com.stanydesa.blog.domain.article.ArticleFavorite;
 import jakarta.persistence.*;
 import lombok.*;
@@ -226,5 +227,14 @@ public class User {
         }
 
         return new ProfileVO(this, target);
+    }
+
+    public boolean isAlreadyFavorite(Article article) {
+        if (article == null) {
+            throw new IllegalArgumentException("article must not be null");
+        }
+
+        ArticleFavorite articleFavorite = new ArticleFavorite(this, article);
+        return this.favoriteArticles.stream().anyMatch(articleFavorite::equals);
     }
 }

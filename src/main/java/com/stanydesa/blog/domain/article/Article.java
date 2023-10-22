@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -67,11 +68,37 @@ public class Article {//TODO analyze the mapping between Tables
         this.createdAt = LocalDateTime.now();
     }
 
+    public List<Tag> getTags() {
+        return this.includeTags.stream().map(ArticleTag::getTag).toList();
+    }
+
+    public String[] getTagNames() {
+        return this.getTags().stream().map(Tag::getName).sorted().toArray(String[]::new);
+    }
+
+    public int numberOfLikes() {
+        return this.favoriteUsers.size();
+    }
+
     private String createSlugBy(String title) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("title must not be null or blank");
         }
 
         return title.toLowerCase().replaceAll("\\s+", "-");//replacing all spaces with -
+    }
+
+    public void addTag(Tag tag) {
+        if (tag == null) {
+            throw new IllegalArgumentException("tag must not be null");
+        }
+
+        ArticleTag articleTag = new ArticleTag(this, tag);
+
+        if (this.includeTags.stream().anyMatch(articleTag::equals)) {
+            return;
+        }
+
+        this.includeTags.add(articleTag);
     }
 }

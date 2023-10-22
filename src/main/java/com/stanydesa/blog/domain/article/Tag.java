@@ -44,4 +44,12 @@ public class Tag {
     public int hashCode() {
         return Objects.hash(this.id, this.name);
     }
+
+    public void addTo(Article article) {
+        if (article == null) {
+            throw new IllegalArgumentException("article must not be null");
+        }
+
+        article.addTag(this);
+    }
 }
