@@ -78,6 +78,9 @@ Example:
         Jetski
         SkiDoo
 
+CRUD operations on each table:
+    ?????
+
 TO DO:
     swagger integration
     test cases

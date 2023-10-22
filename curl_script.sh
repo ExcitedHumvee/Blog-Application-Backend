@@ -163,3 +163,33 @@ create_article_response=$(curl --location 'http://localhost:8080/api/articles' \
 echo "Create Article Response:"
 echo "$create_article_response"
 echo
+
+# Command 10: Update an article using the saved token
+update_article_response=$(curl --location --request PUT 'http://localhost:8080/api/articles/how-to-train-your-dragon' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '{
+    "article": {
+        "body": "With two hands",
+        "title": "How to train your dragon",
+        "description": "Ever wonder how?"
+    }
+}')
+
+# Print the update article response
+echo "Update Article Response:"
+echo "$update_article_response"
+echo
+
+# Command 11: Delete an article using the saved token
+delete_article_response=$(curl --location --request DELETE 'http://localhost:8080/api/articles/how-to-train-your-dragon' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '')
+
+# Print the delete article response
+echo "Delete Article Response:"
+echo "$delete_article_response"
+echo
