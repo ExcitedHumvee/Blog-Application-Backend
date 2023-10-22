@@ -5,6 +5,8 @@ openssl rsa -pubout -in private_key.pem -out public_key.pem
 
 to be included in README.md
 
+To run all api routes from CLI: /bin/bash curl_script.sh
+
 Project structure:
     Application (application's configuration and user interface)
         Config
