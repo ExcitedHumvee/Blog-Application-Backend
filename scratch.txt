@@ -157,3 +157,10 @@ curl --location --request PUT 'http://localhost:8080/api/articles/how-to-train-y
         "description": "Ever wonder how?"
     }
 }'
+
+DELETE article
+curl --location --request DELETE 'http://localhost:8080/api/articles/how-to-train-your-dragon' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjM4ZmNiZTdmLTMwZDktNDk0OS05YzE2LWY0ZGIwZGVhYmI4ZiIsImV4cCI6MTY5ODA5NjE0NCwiaWF0IjoxNjk4MDA5NzQ0fQ.iCDwDXqR_sLXGeaL0HYAB4S-bFKzDBbbEQJdWlptkV-YNSIsxrPYsRmKiam5lXzkRQ6bc3pgsUfWrGvlYErBMdBvWgXIbwezpwsu5chkkeE8WFqdJzvsj6r3mOh6Uvz5BZLxASqIuU3fVLDlMIV-6fnKswv953sY1Dx8UvkCsGWMofeQFYJNEzoiBXEKLkzcRK4LHvH6AA3b0QVJUYIgtwf_HTvUOzkKZQj2BCEbsV_RKvR-hkEIoWhEssBB6GLd6aurf_reCyhwP73uBmF_B2Ht5UkLayQJ3e7nrf9s6KwB43xNfktVtHzlj2tyQPtIXKqloaEG7I0mFv4Qzkgbwg' \
+--data ''

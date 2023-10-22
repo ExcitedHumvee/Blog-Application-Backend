@@ -23,4 +23,9 @@ public class ArticleController {
         ArticleVO article = articleService.updateArticle(me, slug, request);
         return new SingleArticleRecord(article);
     }
+
+    @DeleteMapping("/api/articles/{slug}")
+    public void deleteArticle(User me, @PathVariable String slug) {
+        articleService.deleteArticle(me, slug);
+    }
 }

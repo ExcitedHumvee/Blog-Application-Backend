@@ -60,4 +60,15 @@ public class ArticleService {
                 .findBySlug(slug)
                 .orElseThrow(() -> new NoSuchElementException("Article not found by slug: `%s`".formatted(slug)));
     }
+
+    @Transactional
+    public void deleteArticle(User me, String slug) {
+        Article article = findBySlug(slug);
+
+        if (article.isNotWritten(me)) {
+            throw new IllegalArgumentException("You can't delete articles written by others.");
+        }
+
+        articleRepository.delete(article);
+    }
 }
