@@ -1,12 +1,14 @@
 package com.stanydesa.blog.application.article.service;
 
 import com.stanydesa.blog.application.article.controller.CreateArticleRequest;
+import com.stanydesa.blog.application.article.controller.UpdateArticleRequest;
 import com.stanydesa.blog.domain.article.*;
 import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -36,5 +38,26 @@ public class ArticleService {
 
         article = articleRepository.save(article);
         return new ArticleVO(me, article);
+    }
+
+    @Transactional
+    public ArticleVO updateArticle(User me, String slug, UpdateArticleRequest request) {
+        Article article = findBySlug(slug);
+
+        if (article.isNotWritten(me)) {
+            throw new IllegalArgumentException("You can't edit articles written by others.");
+        }
+
+        article.updateTitle(request.title());
+        article.updateDescription(request.description());
+        article.updateContent(request.body());
+
+        return new ArticleVO(me, article);
+    }
+
+    private Article findBySlug(String slug) {
+        return articleRepository
+                .findBySlug(slug)
+                .orElseThrow(() -> new NoSuchElementException("Article not found by slug: `%s`".formatted(slug)));
     }
 }

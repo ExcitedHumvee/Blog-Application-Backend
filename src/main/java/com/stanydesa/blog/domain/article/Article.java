@@ -80,12 +80,41 @@ public class Article {//TODO analyze the mapping between Tables
         return this.favoriteUsers.size();
     }
 
+    public void updateTitle(String title) {
+        if (title == null || title.isBlank()) {
+            return;
+        }
+
+        this.title = title;
+        this.slug = createSlugBy(title);
+    }
+
+    public void updateDescription(String description) {
+        if (description == null || description.isBlank()) {
+            return;
+        }
+
+        this.description = description;
+    }
+
+    public void updateContent(String content) {
+        if (content == null || content.isBlank()) {
+            return;
+        }
+
+        this.content = content;
+    }
+
     private String createSlugBy(String title) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("title must not be null or blank");
         }
 
         return title.toLowerCase().replaceAll("\\s+", "-");//replacing all spaces with -
+    }
+
+    public boolean isNotWritten(User user) {
+        return !this.author.equals(user);
     }
 
     public void addTag(Tag tag) {
