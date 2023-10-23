@@ -155,6 +155,18 @@ echo "Unfollow Response:"
 pretty_print_json "$unfollow_response"
 echo
 
+# Command 8.1: Follow the second user using the saved token
+follow_response=$(curl --location "http://localhost:8080/api/profiles/$username2/follow" \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '')
+
+# Print the follow response for the second user
+echo "Follow Response:"
+pretty_print_json "$follow_response"
+echo
+
 # Command 9: Create an article using the saved token
 create_article_response=$(curl --location 'http://localhost:8080/api/articles' \
 --header 'Content-Type: application/json' \
@@ -229,6 +241,27 @@ echo "Create Article Response:"
 pretty_print_json "$create_article_response"
 echo
 
+# Command 12.1: Create an article using the saved token2
+create_article_response=$(curl --location 'http://localhost:8080/api/articles' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token2" \
+--data '{
+    "article": {
+        "title": "How to decide between a dog and a cat?",
+        "description": "Which one?",
+        "body": "Dogs over cats any day",
+        "tagList": [
+            "pets"
+        ]
+    }
+}')
+
+# Print the create article response
+echo "Create Article Response:"
+pretty_print_json "$create_article_response"
+echo
+
 # Command 13: Get a single article using the saved token
 get_article_response=$(curl --location 'http://localhost:8080/api/articles/how-to-train-your-dragon' \
 --header 'Content-Type: application/json' \
@@ -240,13 +273,8 @@ echo "Get Single Article Response:"
 pretty_print_json "$get_article_response"
 echo
 
-# Command 14: GET all articles with specific parameters
-get_all_articles_response=$(curl --location 'http://localhost:8080/api/articles?author=John%20Doe&tag=dragons&offset=0&limit=20' \
+# Command 14: GET all articles with specific parameters (extra author=John%20Doe&tag=dragons&)
+get_all_articles_response=$(curl --location 'http://localhost:8080/api/articles?offset=0&limit=20' \
 --header 'Content-Type: application/json' \
---header 'X-Requested-With: XMLHttpRequest')
-
-# Print the GET all articles response
-echo "GET All Articles Response:"
-pretty_print_json "$get_all_articles_response"
-echo
-
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token")
