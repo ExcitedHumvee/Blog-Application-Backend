@@ -179,3 +179,8 @@ GET single article
 curl --location 'http://localhost:8080/api/articles/how-to-train-your-dragon' \
 --header 'Content-Type: application/json' \
 --header 'X-Requested-With: XMLHttpRequest'
+
+GET all articles
+curl --location 'http://localhost:8080/api/articles?author=John%20Doe&tag=dragons&offset=0&limit=20' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest'

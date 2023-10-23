@@ -1,10 +1,13 @@
 package com.stanydesa.blog.application.article.controller;
 
 import com.stanydesa.blog.application.article.service.ArticleService;
+import com.stanydesa.blog.domain.article.ArticleFacets;
 import com.stanydesa.blog.domain.article.ArticleVO;
 import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,5 +36,19 @@ public class ArticleController {
     public SingleArticleRecord getSingleArticle(User me, @PathVariable String slug) {
         ArticleVO article = articleService.getSingleArticle(me, slug);
         return new SingleArticleRecord(article);
+    }
+
+    @GetMapping("/api/articles")
+    public MultipleArticlesResponse getArticles(
+            User me,
+            @RequestParam(value = "tag", required = false) String tag,
+            @RequestParam(value = "author", required = false) String author,
+            @RequestParam(value = "favorited", required = false) String favorited,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "limit", required = false, defaultValue = "20") int limit) {
+        //pagination support
+        ArticleFacets facets = new ArticleFacets(tag, author, favorited, offset, limit); //filtering and pagination parameters related to querying articles
+        List<ArticleVO> articles = articleService.getArticles(me, facets);
+        return new MultipleArticlesResponse(articles);
     }
 }

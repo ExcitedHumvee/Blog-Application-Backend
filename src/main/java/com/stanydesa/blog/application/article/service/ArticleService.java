@@ -5,9 +5,12 @@ import com.stanydesa.blog.application.article.controller.UpdateArticleRequest;
 import com.stanydesa.blog.domain.article.*;
 import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -76,5 +79,24 @@ public class ArticleService {
     public ArticleVO getSingleArticle(User me, String slug) {
         Article article = findBySlug(slug);
         return new ArticleVO(me, article);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleVO> getArticles(User me, ArticleFacets facets) {
+        String tag = facets.tag();
+        String author = facets.author();
+        String favorited = facets.favorited();
+        Pageable pageable = facets.getPageable();
+
+        Page<Article> byFacets = articleRepository.findByFacets(tag, author, favorited, pageable);
+//        List<ArticleVO> articleVOList = new ArrayList<>();
+//        List<Article> articles = byFacets.getContent();
+//        for (Article article : articles) {
+//            articleVOList.add(new ArticleVO(me, article));
+//        }
+//        return articleVOList;
+        return byFacets.getContent().stream()
+                .map(article -> new ArticleVO(me, article))
+                .toList();
     }
 }
