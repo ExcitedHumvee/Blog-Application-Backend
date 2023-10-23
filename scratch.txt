@@ -3,6 +3,13 @@ to generate key pair, go to resources folder
 openssl genpkey -algorithm RSA -out private_key.pem
 openssl rsa -pubout -in private_key.pem -out public_key.pem
 
+to create mysql on heroku:
+heroku login
+heroku create blogdatabase
+heroku addons:create jawsdb -a blogdatabase
+heroku config:get JAWSDB_URL -a blogdatabase
+
+
 to be included in README.md
 
 To run all api routes from CLI: /bin/bash curl_script.sh
