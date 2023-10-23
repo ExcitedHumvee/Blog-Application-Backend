@@ -6,6 +6,12 @@ echo
 echo
 echo
 
+# Check if jq is installed
+if ! command -v jq &> /dev/null; then
+    echo "jq is not installed. Please install jq and run the script again."
+    exit 1
+fi
+
 # Function to extract token from API response
 get_token() {
     local response="$1"
