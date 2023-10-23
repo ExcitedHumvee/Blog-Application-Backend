@@ -6,6 +6,6 @@ import java.util.List;
 
 public record MultipleArticlesResponse(ArticleVO[] articles, int articlesCount) {
     public MultipleArticlesResponse(List<ArticleVO> articles) {
-        this(articles.toArray(ArticleVO[]::new), articles.size());
+        this(articles.toArray(ArticleVO[]::new), articles.size());//articles.size() is total size
     }
 }
