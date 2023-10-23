@@ -28,4 +28,10 @@ public class ArticleController {
     public void deleteArticle(User me, @PathVariable String slug) {
         articleService.deleteArticle(me, slug);
     }
+
+    @GetMapping("/api/articles/{slug}")
+    public SingleArticleRecord getSingleArticle(User me, @PathVariable String slug) {
+        ArticleVO article = articleService.getSingleArticle(me, slug);
+        return new SingleArticleRecord(article);
+    }
 }

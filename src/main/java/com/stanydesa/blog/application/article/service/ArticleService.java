@@ -71,4 +71,10 @@ public class ArticleService {
 
         articleRepository.delete(article);
     }
+
+    @Transactional(readOnly = true)
+    public ArticleVO getSingleArticle(User me, String slug) {
+        Article article = findBySlug(slug);
+        return new ArticleVO(me, article);
+    }
 }

@@ -193,3 +193,36 @@ delete_article_response=$(curl --location --request DELETE 'http://localhost:808
 echo "Delete Article Response:"
 echo "$delete_article_response"
 echo
+
+# Command 12: Create an article using the saved token
+create_article_response=$(curl --location 'http://localhost:8080/api/articles' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '{
+    "article": {
+        "title": "How to train your dragon",
+        "description": "Ever wonder how?",
+        "body": "Very carefully.",
+        "tagList": [
+            "training",
+            "dragons"
+        ]
+    }
+}')
+
+# Print the create article response
+echo "Create Article Response:"
+echo "$create_article_response"
+echo
+
+# Command 13: Get a single article using the saved token
+get_article_response=$(curl --location 'http://localhost:8080/api/articles/how-to-train-your-dragon' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token")
+
+# Print the get article response
+echo "Get Single Article Response:"
+echo "$get_article_response"
+echo
