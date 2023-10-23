@@ -5,10 +5,17 @@ echo
 echo
 echo
 echo
+
 # Function to extract token from API response
 get_token() {
     local response="$1"
     echo "$response" | jq -r '.user.token'
+}
+
+# Function to print JSON response nicely
+pretty_print_json() {
+    local response="$1"
+    echo "$response" | jq .
 }
 
 # Command 1: Register a new user
@@ -19,7 +26,7 @@ register_response=$(curl --location 'http://localhost:8080/api/users' \
 
 # Print the registration response
 echo "Registration Response:"
-echo "$register_response"
+pretty_print_json "$register_response"
 echo
 
 # Extract token from the registration response
@@ -37,7 +44,7 @@ login_response=$(curl --location 'http://localhost:8080/api/users/login' \
 
 # Print the login response
 echo "Login Response:"
-echo "$login_response"
+pretty_print_json "$login_response"
 echo
 
 # Extract token from the login response
@@ -55,7 +62,7 @@ current_user_response=$(curl --location 'http://localhost:8080/api/user' \
 
 # Print the current user response
 echo "Current User Response:"
-echo "$current_user_response"
+pretty_print_json "$current_user_response"
 
 # Command 4: Update the user using the saved token
 update_user_response=$(curl --location --request PUT 'http://localhost:8080/api/user' \
@@ -66,7 +73,7 @@ update_user_response=$(curl --location --request PUT 'http://localhost:8080/api/
 
 # Print the update user response
 echo "Update User Response:"
-echo "$update_user_response"
+pretty_print_json "$update_user_response"
 echo
 
 # Command 5: Register a new user and store the token in token2
@@ -94,7 +101,7 @@ login_response_2=$(curl --location 'http://localhost:8080/api/users/login' \
 
 # Print the login response for the second user
 echo "Login Response (2):"
-echo "$login_response_2"
+pretty_print_json "$login_response_2"
 echo
 
 # Extract token from the second login response
@@ -115,7 +122,7 @@ profile_response=$(curl --location "http://localhost:8080/api/profiles/$username
 
 # Print the profile response for the second user
 echo "Profile Response:"
-echo "$profile_response"
+pretty_print_json "$profile_response"
 echo
 
 # Command 7: Follow the second user using the saved token
@@ -127,7 +134,7 @@ follow_response=$(curl --location "http://localhost:8080/api/profiles/$username2
 
 # Print the follow response for the second user
 echo "Follow Response:"
-echo "$follow_response"
+pretty_print_json "$follow_response"
 echo
 
 # Command 8: Unfollow the second user using the saved token
@@ -139,7 +146,7 @@ unfollow_response=$(curl --location --request DELETE "http://localhost:8080/api/
 
 # Print the unfollow response for the second user
 echo "Unfollow Response:"
-echo "$unfollow_response"
+pretty_print_json "$unfollow_response"
 echo
 
 # Command 9: Create an article using the saved token
@@ -161,7 +168,7 @@ create_article_response=$(curl --location 'http://localhost:8080/api/articles' \
 
 # Print the create article response
 echo "Create Article Response:"
-echo "$create_article_response"
+pretty_print_json "$create_article_response"
 echo
 
 # Command 10: Update an article using the saved token
@@ -179,7 +186,7 @@ update_article_response=$(curl --location --request PUT 'http://localhost:8080/a
 
 # Print the update article response
 echo "Update Article Response:"
-echo "$update_article_response"
+pretty_print_json "$update_article_response"
 echo
 
 # Command 11: Delete an article using the saved token
@@ -191,7 +198,7 @@ delete_article_response=$(curl --location --request DELETE 'http://localhost:808
 
 # Print the delete article response
 echo "Delete Article Response:"
-echo "$delete_article_response"
+pretty_print_json "$delete_article_response"
 echo
 
 # Command 12: Create an article using the saved token
@@ -213,7 +220,7 @@ create_article_response=$(curl --location 'http://localhost:8080/api/articles' \
 
 # Print the create article response
 echo "Create Article Response:"
-echo "$create_article_response"
+pretty_print_json "$create_article_response"
 echo
 
 # Command 13: Get a single article using the saved token
@@ -224,5 +231,16 @@ get_article_response=$(curl --location 'http://localhost:8080/api/articles/how-t
 
 # Print the get article response
 echo "Get Single Article Response:"
-echo "$get_article_response"
+pretty_print_json "$get_article_response"
 echo
+
+# Command 14: GET all articles with specific parameters
+get_all_articles_response=$(curl --location 'http://localhost:8080/api/articles?author=John%20Doe&tag=dragons&offset=0&limit=20' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest')
+
+# Print the GET all articles response
+echo "GET All Articles Response:"
+pretty_print_json "$get_all_articles_response"
+echo
+
