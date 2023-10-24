@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Article {//TODO analyze the mapping between Tables
+public class Article {//TODO Later analyze the mapping between Tables
     @Id
     @Column(name = "article_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

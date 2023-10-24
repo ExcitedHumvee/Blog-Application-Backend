@@ -29,5 +29,9 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
             @Param("favorited") String favorited,
             Pageable pageable);
 
-    Page<Article> findByAuthorInOrderByCreatedAtDesc(Collection<User> authors, Pageable pageable);//TODO find sql equivalent
+    Page<Article> findByAuthorInOrderByCreatedAtDesc(Collection<User> authors, Pageable pageable);
+//    SELECT * FROM Article
+//    WHERE author_id IN (:authorIds)
+//    ORDER BY created_at DESC
+//    LIMIT :pageSize OFFSET :pageNumber * :pageSize;
 }
