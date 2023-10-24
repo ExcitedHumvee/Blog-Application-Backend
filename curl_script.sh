@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "Please make sure jq is installed, the tables in DB should be empty"
+echo "To run on Unix/macOS line spacing should be LF. For WSL it should be CRLF"
 echo "########################################################################################"
 echo
 echo
