@@ -35,6 +35,13 @@ public class ArticleFavorite {
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME")
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @PrePersist
+    public void prePersist() {
+        //this is there because whenever object is being created, createdAt is null, which is raising error
+        //prePersist: Ensures createdAt is set before persisting
+        this.createdAt = LocalDateTime.now();
+    }
+
     public ArticleFavorite(User user, Article article) {
         this.id = new ArticleFavoriteId(user.getId(), article.getId());
         this.user = user;
