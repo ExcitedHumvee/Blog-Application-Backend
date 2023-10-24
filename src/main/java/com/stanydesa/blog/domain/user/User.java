@@ -171,6 +171,10 @@ public class User {
         this.follower.remove(follow);
     }
 
+    public List<User> followUsers() {
+        return this.following.stream().map(Follow::getTo).toList();
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public boolean isAlreadyFollowing(User target) {

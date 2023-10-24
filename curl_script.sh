@@ -278,3 +278,14 @@ get_all_articles_response=$(curl --location 'http://localhost:8080/api/articles?
 --header 'Content-Type: application/json' \
 --header 'X-Requested-With: XMLHttpRequest' \
 --header "Authorization: Token $token")
+
+# Command 15: GET feed articles
+feed_articles_response=$(curl --location 'http://localhost:8080/api/articles/feed?offset=0&limit=20' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token")
+
+# Print the feed articles response
+echo "Feed Articles Response:"
+pretty_print_json "$feed_articles_response"
+echo

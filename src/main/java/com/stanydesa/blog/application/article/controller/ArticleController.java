@@ -5,6 +5,7 @@ import com.stanydesa.blog.domain.article.ArticleFacets;
 import com.stanydesa.blog.domain.article.ArticleVO;
 import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,6 +50,17 @@ public class ArticleController {
         //pagination support
         ArticleFacets facets = new ArticleFacets(tag, author, favorited, offset, limit); //filtering and pagination parameters related to querying articles
         List<ArticleVO> articles = articleService.getArticles(me, facets);
+        return new MultipleArticlesResponse(articles);
+    }
+
+    @PreAuthorize("isAuthenticated()")//TODO why this here
+    @GetMapping("/api/articles/feed")
+    public MultipleArticlesResponse getFeedArticles(
+            User me,
+            @RequestParam(value = "offset", required = false, defaultValue = "0") int offset,
+            @RequestParam(value = "limit", required = false, defaultValue = "20") int limit) {
+        ArticleFacets facets = new ArticleFacets(null, null, null, offset, limit);
+        List<ArticleVO> articles = articleService.getFeedArticles(me, facets);
         return new MultipleArticlesResponse(articles);
     }
 }

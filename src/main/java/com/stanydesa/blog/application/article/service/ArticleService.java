@@ -99,4 +99,15 @@ public class ArticleService {
                 .map(article -> new ArticleVO(me, article))
                 .toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<ArticleVO> getFeedArticles(User me, ArticleFacets facets) {
+        List<User> followings = me.followUsers();
+        Pageable pageable = facets.getPageable();
+
+        return articleRepository
+                .findByAuthorInOrderByCreatedAtDesc(followings, pageable)
+                .map(article -> new ArticleVO(me, article))
+                .getContent();
+    }
 }
