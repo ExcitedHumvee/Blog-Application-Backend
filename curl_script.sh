@@ -289,3 +289,26 @@ feed_articles_response=$(curl --location 'http://localhost:8080/api/articles/fee
 echo "Feed Articles Response:"
 pretty_print_json "$feed_articles_response"
 echo
+
+# Command 16: POST favorite article
+favorite_article_response=$(curl --location --request POST 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/favorite' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '')
+# Print the favorite article response
+echo "Favorite Article Response:"
+pretty_print_json "$favorite_article_response"
+echo
+
+# Command 17: DELETE unfavorite article
+unfavorite_article_response=$(curl --location --request DELETE 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/favorite' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '')
+# Print the unfavorite article response
+echo "Unfavorite Article Response:"
+pretty_print_json "$unfavorite_article_response"
+echo
+

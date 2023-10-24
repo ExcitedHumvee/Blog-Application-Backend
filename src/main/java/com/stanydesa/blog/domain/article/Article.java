@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -129,5 +130,13 @@ public class Article {//TODO Later analyze the mapping between Tables
         }
 
         this.includeTags.add(articleTag);
+    }
+
+    public boolean equalsArticle(ArticleFavorite articleFavorite) {
+        if (articleFavorite == null) {
+            throw new IllegalArgumentException("articleFavorite must not be null");
+        }
+
+        return Objects.equals(this, articleFavorite.getArticle());
     }
 }

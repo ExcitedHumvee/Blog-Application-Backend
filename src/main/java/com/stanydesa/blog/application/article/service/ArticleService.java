@@ -110,4 +110,16 @@ public class ArticleService {
                 .map(article -> new ArticleVO(me, article))
                 .getContent();
     }
+
+    @Transactional
+    public ArticleVO favoriteArticle(User me, String slug) {
+        Article article = findBySlug(slug);
+        return me.favorite(article);
+    }
+
+    @Transactional
+    public ArticleVO unfavoriteArticle(User me, String slug) {
+        Article article = findBySlug(slug);
+        return me.unfavorite(article);
+    }
 }

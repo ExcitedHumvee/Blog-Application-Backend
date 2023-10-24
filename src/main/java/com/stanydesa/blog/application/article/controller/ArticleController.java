@@ -63,4 +63,16 @@ public class ArticleController {
         List<ArticleVO> articles = articleService.getFeedArticles(me, facets);
         return new MultipleArticlesResponse(articles);
     }
+
+    @PostMapping("/api/articles/{slug}/favorite")
+    public SingleArticleRecord favoriteArticle(User me, @PathVariable String slug) {
+        ArticleVO article = articleService.favoriteArticle(me, slug);
+        return new SingleArticleRecord(article);
+    }
+
+    @DeleteMapping("/api/articles/{slug}/favorite")
+    public SingleArticleRecord unfavoriteArticle(User me, @PathVariable String slug) {
+        ArticleVO article = articleService.unfavoriteArticle(me, slug);
+        return new SingleArticleRecord(article);
+    }
 }

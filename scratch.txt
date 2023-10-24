@@ -190,3 +190,17 @@ curl --location 'http://localhost:8080/api/articles/feed' \
 --header 'Content-Type: application/json' \
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjRkNDc4OGNkLWFkZDEtNGM3NC04Y2ZlLTlkMTkwNDFlYTFmNCIsImV4cCI6MTY5ODIyOTAyNiwiaWF0IjoxNjk4MTQyNjI2fQ.eeCcjjzAFV8A2jsX7o8ij-u-xPVSZ-dEg0mBrzf9jEoXVY-F8lVOTj0ttL7gbwx-iujOqzZiS5mv7eg9PymufVjq0LfeXiugJPwkoGuzU03meEDjdlYILPqOacS0pZL0ckIZHhrC2JZ1_C0s_hy0URL86lTj8Hc7pRfdGLEtBva96Ej2994VFJrEUNJFaUxCk8v1BA2JgansH6jA-9DHNVxsBOlttJxC88s02rOD-2vu2tcu8XVtxNk0GddmcYXts3FNX8gpkSKE56KGa1TtyAWYeupfY6cQmyh2edCNOiw0BxS9rlGlQ4wSIlI13tyWXGBfsGQ1ofc0Cu4klGRgQg'
+
+POST favorite article
+curl --location --request POST 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/favorite' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjgyMmYyY2VjLWEyYTctNGRjZC05NzU3LWY1ZDFhYTk1NzFkMyIsImV4cCI6MTY5ODIzNTI3MSwiaWF0IjoxNjk4MTQ4ODcxfQ.Qk3qxNkq3hOVf_xnEmwkPbE0VI1cCP8f4O7iJoB1viXmC_qwXHaVZ4jgwM3pNoZm3QMxWELwFjUfwH1ersJtPoLBoveuXvlyBPn5VklnuZ_88xxCAshYDfJifRETvHmak11nF8ElgUrTModcfkzAkkbq7qDFo_Hp98wXDQE_L28tUu0RZU0h-cT5b8DgZI1tyUTOtdBQvqhBdy4Wmzs5fumx3gKA4gsI5gJD7vTs9YrOIXoQor91qheqmi0rxw4TPU0XPHIaI_wgVRbcuPuxk3P9GpfDtKR8DZlP6XU1d9YlApZePStQqNGZSHxtS490qTdaF-g2NbceNzMCzrM8wA' \
+--data ''
+
+DELETE unfavorite article
+curl --location --request POST 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/favorite' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjgyMmYyY2VjLWEyYTctNGRjZC05NzU3LWY1ZDFhYTk1NzFkMyIsImV4cCI6MTY5ODIzNTI3MSwiaWF0IjoxNjk4MTQ4ODcxfQ.Qk3qxNkq3hOVf_xnEmwkPbE0VI1cCP8f4O7iJoB1viXmC_qwXHaVZ4jgwM3pNoZm3QMxWELwFjUfwH1ersJtPoLBoveuXvlyBPn5VklnuZ_88xxCAshYDfJifRETvHmak11nF8ElgUrTModcfkzAkkbq7qDFo_Hp98wXDQE_L28tUu0RZU0h-cT5b8DgZI1tyUTOtdBQvqhBdy4Wmzs5fumx3gKA4gsI5gJD7vTs9YrOIXoQor91qheqmi0rxw4TPU0XPHIaI_wgVRbcuPuxk3P9GpfDtKR8DZlP6XU1d9YlApZePStQqNGZSHxtS490qTdaF-g2NbceNzMCzrM8wA' \
+--data ''

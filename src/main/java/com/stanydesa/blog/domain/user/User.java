@@ -2,6 +2,7 @@ package com.stanydesa.blog.domain.user;
 
 import com.stanydesa.blog.domain.article.Article;
 import com.stanydesa.blog.domain.article.ArticleFavorite;
+import com.stanydesa.blog.domain.article.ArticleVO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -175,6 +176,26 @@ public class User {
         return this.following.stream().map(Follow::getTo).toList();
     }
 
+    private void addFavoriteArticle(ArticleFavorite articleFavorite) {
+        this.favoriteArticles.add(articleFavorite);
+    }
+
+    private void addThisUserToFavorite(ArticleFavorite articleFavorite) {
+        articleFavorite.getArticle().getFavoriteUsers().add(articleFavorite);
+    }
+
+    private Optional<ArticleFavorite> findArticleFavorite(Article article) {
+        return this.favoriteArticles.stream().filter(article::equalsArticle).findFirst();
+    }
+
+    private void removeFavoriteArticle(ArticleFavorite articleFavorite) {
+        this.favoriteArticles.remove(articleFavorite);
+    }
+
+    private void removeUserFromFavorite(ArticleFavorite articleFavorite) {
+        articleFavorite.getArticle().getFavoriteUsers().remove(articleFavorite);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public boolean isAlreadyFollowing(User target) {
@@ -240,5 +261,34 @@ public class User {
 
         ArticleFavorite articleFavorite = new ArticleFavorite(this, article);
         return this.favoriteArticles.stream().anyMatch(articleFavorite::equals);
+    }
+
+    public ArticleVO favorite(Article article) {
+        if (article == null) {
+            throw new IllegalArgumentException("article must not be null");
+        }
+
+        if (isAlreadyFavorite(article)) {
+            return new ArticleVO(this, article);
+        }
+
+        ArticleFavorite articleFavorite = new ArticleFavorite(this, article);
+        addFavoriteArticle(articleFavorite);
+        addThisUserToFavorite(articleFavorite);
+
+        return new ArticleVO(this, article);
+    }
+
+    public ArticleVO unfavorite(Article article) {
+        if (article == null) {
+            throw new IllegalArgumentException("article must not be null");
+        }
+
+        findArticleFavorite(article).ifPresent(articleFavorite -> {
+            removeFavoriteArticle(articleFavorite);
+            removeUserFromFavorite(articleFavorite);
+        });
+
+        return new ArticleVO(this, article);
     }
 }
