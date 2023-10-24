@@ -53,7 +53,7 @@ public class ArticleController {
         return new MultipleArticlesResponse(articles);
     }
 
-    @PreAuthorize("isAuthenticated()")//TODO why this here
+    @PreAuthorize("isAuthenticated()")//TODO why this here, without this, anonymous user is getting through
     @GetMapping("/api/articles/feed")
     public MultipleArticlesResponse getFeedArticles(
             User me,
