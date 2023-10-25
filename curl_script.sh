@@ -359,3 +359,13 @@ delete_comment_response=$(curl --location --request DELETE "http://localhost:808
 echo "Delete Comment Response:"
 pretty_print_json "$delete_comment_response"
 echo
+
+# Command 21: GET tags
+get_tags_response=$(curl --location 'http://localhost:8080/api/tags' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest')
+
+# Print the get tags response
+echo "Get Tags Response:"
+pretty_print_json "$get_tags_response"
+echo

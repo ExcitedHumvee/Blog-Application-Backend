@@ -231,3 +231,8 @@ curl --location --request DELETE 'http://localhost:8080/api/articles/how-to-deci
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6Ijk3ZjdlMTc3LWY5M2MtNDc0My1iMTNhLWE4MGE3NjRmYzU1MiIsImV4cCI6MTY5OTEwNzIxMywiaWF0IjoxNjk4MjQzMjEzfQ.olcqTAguAUfGxRYZv_JRzXYDiC5Lg6UDx6STaYxKGsE5Lm4yBmKIWqDUsEtV8O1TJuUQbm3l-eASNgmAoPVnUACuBqxRBmtZnh2KXMxtn93QrjbFzp4G0L6iCFvvuAp7_2uzjmuTNRlQElOIq4LOF1Aa5ZMIKQxH1BdJfuxLgt5CMqX24ZoUayP8JKONp0UK8EGGG7M3QcE_KX2yXJLM4Vsu-6FT73PXHuXYlie413lThGlP23iMpgZStUyKMro6Kbq1OuUVfoIgiPWFVeEWFP8PdodedE7KlY8iYvItNErrvaNOJ1fX5YvoREYQO0hgUxGo04ld91o-pXiArLYilQ' \
 --data ''
+
+GET all tags
+curl --location 'http://localhost:8080/api/tags' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest'
