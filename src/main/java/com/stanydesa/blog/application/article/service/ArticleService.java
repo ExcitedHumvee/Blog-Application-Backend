@@ -1,6 +1,7 @@
 package com.stanydesa.blog.application.article.service;
 
 import com.stanydesa.blog.application.article.controller.CreateArticleRequest;
+import com.stanydesa.blog.application.article.controller.CreateCommentRequest;
 import com.stanydesa.blog.application.article.controller.UpdateArticleRequest;
 import com.stanydesa.blog.domain.article.*;
 import com.stanydesa.blog.domain.user.User;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public ArticleVO createArticle(User me, CreateArticleRequest request) {
@@ -121,5 +123,18 @@ public class ArticleService {
     public ArticleVO unfavoriteArticle(User me, String slug) {
         Article article = findBySlug(slug);
         return me.unfavorite(article);
+    }
+
+    @Transactional
+    public CommentVO createComment(User me, String slug, CreateCommentRequest request) {
+        Comment comment = Comment.builder()
+                .article(findBySlug(slug))
+                .author(me)
+                .content(request.body())
+                .build();
+
+        commentRepository.save(comment);
+
+        return CommentVO.myComment(comment);
     }
 }

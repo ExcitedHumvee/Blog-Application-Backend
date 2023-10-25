@@ -211,3 +211,10 @@ curl --location --request POST 'http://localhost:8080/api/articles/how-to-decide
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjgyMmYyY2VjLWEyYTctNGRjZC05NzU3LWY1ZDFhYTk1NzFkMyIsImV4cCI6MTY5ODIzNTI3MSwiaWF0IjoxNjk4MTQ4ODcxfQ.Qk3qxNkq3hOVf_xnEmwkPbE0VI1cCP8f4O7iJoB1viXmC_qwXHaVZ4jgwM3pNoZm3QMxWELwFjUfwH1ersJtPoLBoveuXvlyBPn5VklnuZ_88xxCAshYDfJifRETvHmak11nF8ElgUrTModcfkzAkkbq7qDFo_Hp98wXDQE_L28tUu0RZU0h-cT5b8DgZI1tyUTOtdBQvqhBdy4Wmzs5fumx3gKA4gsI5gJD7vTs9YrOIXoQor91qheqmi0rxw4TPU0XPHIaI_wgVRbcuPuxk3P9GpfDtKR8DZlP6XU1d9YlApZePStQqNGZSHxtS490qTdaF-g2NbceNzMCzrM8wA' \
 --data ''
+
+POST add comment
+curl --location 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjExYTRhMjdmLTIyODktNDBlYi04N2E3LTQ2MDkwNDU3MTAyYiIsImV4cCI6MTY5ODMxODczMSwiaWF0IjoxNjk4MjMyMzMxfQ.jDAmUTzF8kJ3iqHjBzmABuDf3ZmgFDMpYCPutYBrT1obzGGkWiwKtjh2t-nuyMu0zks892GGxIrTNyyc0rAiGir9fGHucHBkxAHgQkUZk4D6JurCRkp1yfSRUtGemnKPc_2wA9cWzWrLKpVZexCw6RbNK-OO5R4lvioql8f5x1mRfdCPu6AgTaZOYd9l6c3HoFoxozNivxhwLN_OqtzsPbGxCrLq7s_l02PvSj4vMEh1wZKTCqHZMqkYiywL4otj5tZZgm5ejth11Pajaj_4iw4D1EFaKN-YqG8c3eM8tiwIeqGNPfmvmXV4AnHg_f8AhkdHUrYxUsacMnn7zkswXg' \
+--data '{"comment":{"body":"Thank you so much!"}}'

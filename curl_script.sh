@@ -313,3 +313,15 @@ echo "Unfavorite Article Response:"
 pretty_print_json "$unfavorite_article_response"
 echo
 
+# Command 18: POST add comment using the stored token
+add_comment_response=$(curl --location "http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments" \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '{"comment":{"body":"Thank you so much!"}}')
+
+# Print the add comment response
+echo "Add Comment Response:"
+pretty_print_json "$add_comment_response"
+echo
+

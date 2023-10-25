@@ -3,6 +3,8 @@ package com.stanydesa.blog.application.article.controller;
 import com.stanydesa.blog.application.article.service.ArticleService;
 import com.stanydesa.blog.domain.article.ArticleFacets;
 import com.stanydesa.blog.domain.article.ArticleVO;
+import com.stanydesa.blog.domain.article.CommentVO;
+import com.stanydesa.blog.domain.article.SingleCommentRecord;
 import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -74,5 +76,12 @@ public class ArticleController {
     public SingleArticleRecord unfavoriteArticle(User me, @PathVariable String slug) {
         ArticleVO article = articleService.unfavoriteArticle(me, slug);
         return new SingleArticleRecord(article);
+    }
+
+    @PostMapping("/api/articles/{slug}/comments")
+    public SingleCommentRecord createComment(
+            User me, @PathVariable String slug, @RequestBody CreateCommentRequest request) {
+        CommentVO comment = articleService.createComment(me, slug, request);
+        return new SingleCommentRecord(comment);
     }
 }
