@@ -312,6 +312,15 @@ unfavorite_article_response=$(curl --location --request DELETE 'http://localhost
 echo "Unfavorite Article Response:"
 pretty_print_json "$unfavorite_article_response"
 echo
+favorite_article_response=$(curl --location --request POST 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/favorite' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '')
+# Print the favorite article response
+echo "Favorite Article Response:"
+pretty_print_json "$favorite_article_response"
+echo
 
 # Command 18: POST add comment using the stored token
 add_comment_response=$(curl --location "http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments" \
