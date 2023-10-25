@@ -62,10 +62,17 @@ DB tables:
         Relationships:
             Many-to-One relationship with Article table (article)
             Many-to-One relationship with Tag table (tag)
-    Tage:
+    Tag:
         Keys:
             id: Primary key for the tag
         Relationships:
+
+    Comment:
+        Keys:
+            id: Primary key for the comment
+        Relationships:
+            Many-to-One relationship with Article table (article)
+            Many-to-One relationship with User table (author)
 Example:
     Article table:            
         Article1 by user1
