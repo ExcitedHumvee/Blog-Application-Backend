@@ -20,7 +20,7 @@ public class BearerTokenProvider {
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("https://realworld.io")
                 .issuedAt(now)
-                .expiresAt(now.plusSeconds(60*60*24))
+                .expiresAt(now.plusSeconds(60*60*24*10))
                 .subject(user.getId().toString())
                 .build();
 

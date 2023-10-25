@@ -84,4 +84,10 @@ public class ArticleController {
         CommentVO comment = articleService.createComment(me, slug, request);
         return new SingleCommentRecord(comment);
     }
+
+    @GetMapping("/api/articles/{slug}/comments")
+    public MultipleCommentsRecord getComments(User me, @PathVariable String slug) {
+        List<CommentVO> comments = articleService.getArticleComments(me, slug);
+        return new MultipleCommentsRecord(comments);
+    }
 }

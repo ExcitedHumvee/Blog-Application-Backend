@@ -4,6 +4,8 @@ import com.stanydesa.blog.application.article.controller.CreateArticleRequest;
 import com.stanydesa.blog.application.article.controller.CreateCommentRequest;
 import com.stanydesa.blog.application.article.controller.UpdateArticleRequest;
 import com.stanydesa.blog.domain.article.*;
+import com.stanydesa.blog.domain.user.FollowId;
+import com.stanydesa.blog.domain.user.FollowRepository;
 import com.stanydesa.blog.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final TagRepository tagRepository;
     private final CommentRepository commentRepository;
+    private final FollowRepository followRepository;
 
     @Transactional
     public ArticleVO createArticle(User me, CreateArticleRequest request) {
@@ -136,5 +140,25 @@ public class ArticleService {
         commentRepository.save(comment);
 
         return CommentVO.myComment(comment);
+    }
+
+    @Transactional
+    public List<CommentVO> getArticleComments(User me, String slug) {
+        Article article = findBySlug(slug);
+        Set<Comment> comments = commentRepository.findByArticleOrderByCreatedAtDesc(article);
+
+        if (me.isAnonymous()) {
+            return comments.stream().map(CommentVO::unfollowing).toList();
+        }
+
+        return comments.stream()
+                .map(comment -> {//TODO explain
+                    User commentAuthor = comment.getAuthor();
+                    FollowId userFollowId = new FollowId(me.getId(), commentAuthor.getId());
+                    return followRepository.existsById(userFollowId)
+                            ? CommentVO.following(comment)
+                            : CommentVO.unfollowing(comment);
+                })
+                .toList();
     }
 }

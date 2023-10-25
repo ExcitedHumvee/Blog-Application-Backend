@@ -218,3 +218,10 @@ curl --location 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjExYTRhMjdmLTIyODktNDBlYi04N2E3LTQ2MDkwNDU3MTAyYiIsImV4cCI6MTY5ODMxODczMSwiaWF0IjoxNjk4MjMyMzMxfQ.jDAmUTzF8kJ3iqHjBzmABuDf3ZmgFDMpYCPutYBrT1obzGGkWiwKtjh2t-nuyMu0zks892GGxIrTNyyc0rAiGir9fGHucHBkxAHgQkUZk4D6JurCRkp1yfSRUtGemnKPc_2wA9cWzWrLKpVZexCw6RbNK-OO5R4lvioql8f5x1mRfdCPu6AgTaZOYd9l6c3HoFoxozNivxhwLN_OqtzsPbGxCrLq7s_l02PvSj4vMEh1wZKTCqHZMqkYiywL4otj5tZZgm5ejth11Pajaj_4iw4D1EFaKN-YqG8c3eM8tiwIeqGNPfmvmXV4AnHg_f8AhkdHUrYxUsacMnn7zkswXg' \
 --data '{"comment":{"body":"Thank you so much!"}}'
+
+GET comments from article
+curl --location 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjE4OWUyNmYxLTdlMDAtNDhiZi1iZTZjLTY5YjllZjIxOGNlMyIsImV4cCI6MTY5OTEwNjc2NywiaWF0IjoxNjk4MjQyNzY3fQ.fS4bMMzubt7hGoWoV69kh2UxO7DSkwPXmFeQb7HSVHDN0D_EvdbwZYlSnRFnipTaTE6vJx8l6bvXe_48wKRpS-gB1N9CYt_ynJRBhIhPJADxbHoIstsMrgC0C6VhkQjKfx7sO7hYDgU41AIPEj-okAP5spUtLS_EaDqne-WP-obzYpLok_f-s9JlqZny8BfU3M2tCE0yDYpYU9uvzW0GQBPmjPqrA-GqH7Qmy-wwmoIeY-GUGO81ofnTRBmXKGuPm1RObmtdJAoDakAiIHTv321AlZUibBKny7OR_F3DNDWJ3DBGaOL6u0e-uw6b8UfwQad5xAp5V2DhrhKKvlFQcA'
+
