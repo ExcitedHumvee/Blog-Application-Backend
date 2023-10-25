@@ -225,3 +225,9 @@ curl --location 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-
 --header 'X-Requested-With: XMLHttpRequest' \
 --header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6IjE4OWUyNmYxLTdlMDAtNDhiZi1iZTZjLTY5YjllZjIxOGNlMyIsImV4cCI6MTY5OTEwNjc2NywiaWF0IjoxNjk4MjQyNzY3fQ.fS4bMMzubt7hGoWoV69kh2UxO7DSkwPXmFeQb7HSVHDN0D_EvdbwZYlSnRFnipTaTE6vJx8l6bvXe_48wKRpS-gB1N9CYt_ynJRBhIhPJADxbHoIstsMrgC0C6VhkQjKfx7sO7hYDgU41AIPEj-okAP5spUtLS_EaDqne-WP-obzYpLok_f-s9JlqZny8BfU3M2tCE0yDYpYU9uvzW0GQBPmjPqrA-GqH7Qmy-wwmoIeY-GUGO81ofnTRBmXKGuPm1RObmtdJAoDakAiIHTv321AlZUibBKny7OR_F3DNDWJ3DBGaOL6u0e-uw6b8UfwQad5xAp5V2DhrhKKvlFQcA'
 
+DELETE comment from article
+curl --location --request DELETE 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments/2' \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header 'Authorization: Token eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlYWx3b3JsZC5pbyIsInN1YiI6Ijk3ZjdlMTc3LWY5M2MtNDc0My1iMTNhLWE4MGE3NjRmYzU1MiIsImV4cCI6MTY5OTEwNzIxMywiaWF0IjoxNjk4MjQzMjEzfQ.olcqTAguAUfGxRYZv_JRzXYDiC5Lg6UDx6STaYxKGsE5Lm4yBmKIWqDUsEtV8O1TJuUQbm3l-eASNgmAoPVnUACuBqxRBmtZnh2KXMxtn93QrjbFzp4G0L6iCFvvuAp7_2uzjmuTNRlQElOIq4LOF1Aa5ZMIKQxH1BdJfuxLgt5CMqX24ZoUayP8JKONp0UK8EGGG7M3QcE_KX2yXJLM4Vsu-6FT73PXHuXYlie413lThGlP23iMpgZStUyKMro6Kbq1OuUVfoIgiPWFVeEWFP8PdodedE7KlY8iYvItNErrvaNOJ1fX5YvoREYQO0hgUxGo04ld91o-pXiArLYilQ' \
+--data ''

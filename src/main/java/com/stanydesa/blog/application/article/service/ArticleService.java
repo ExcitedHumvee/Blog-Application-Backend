@@ -161,4 +161,17 @@ public class ArticleService {
                 })
                 .toList();
     }
+
+    @Transactional
+    public void deleteComment(User me, int commentId) {
+        Comment comment = commentRepository
+                .findById(commentId)
+                .orElseThrow(() -> new NoSuchElementException("Comment not found by id: `%d`".formatted(commentId)));
+
+        if (comment.isNotWritten(me)) {
+            throw new IllegalArgumentException("You can't delete comments written by others.");
+        }
+
+        commentRepository.delete(comment);
+    }
 }

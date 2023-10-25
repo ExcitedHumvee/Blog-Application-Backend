@@ -325,6 +325,17 @@ echo "Add Comment Response:"
 pretty_print_json "$add_comment_response"
 echo
 
+add_comment_response=$(curl --location "http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments" \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '{"comment":{"body":"Nice"}}')
+
+# Print the add comment response
+echo "Add Comment Response:"
+pretty_print_json "$add_comment_response"
+echo
+
 # Command 19: GET comments from article using the replaced token
 get_comments_response=$(curl --location 'http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments' \
 --header 'Content-Type: application/json' \
@@ -334,4 +345,17 @@ get_comments_response=$(curl --location 'http://localhost:8080/api/articles/how-
 # Print the get comments response
 echo "Get Comments Response:"
 pretty_print_json "$get_comments_response"
+echo
+
+# Command 20: DELETE comment using the stored token
+comment_id=2  # Replace with the actual comment ID you want to delete
+delete_comment_response=$(curl --location --request DELETE "http://localhost:8080/api/articles/how-to-decide-between-a-dog-and-a-cat%3F/comments/$comment_id" \
+--header 'Content-Type: application/json' \
+--header 'X-Requested-With: XMLHttpRequest' \
+--header "Authorization: Token $token" \
+--data '')
+
+# Print the delete comment response
+echo "Delete Comment Response:"
+pretty_print_json "$delete_comment_response"
 echo

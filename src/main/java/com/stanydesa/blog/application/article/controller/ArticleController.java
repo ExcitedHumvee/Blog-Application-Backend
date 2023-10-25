@@ -90,4 +90,9 @@ public class ArticleController {
         List<CommentVO> comments = articleService.getArticleComments(me, slug);
         return new MultipleCommentsRecord(comments);
     }
+
+    @DeleteMapping("/api/articles/{slug}/comments/{id}")
+    public void deleteComment(User me, @PathVariable String slug, @PathVariable int id) {
+        articleService.deleteComment(me, id);
+    }
 }
