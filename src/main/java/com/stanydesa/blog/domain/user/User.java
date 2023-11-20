@@ -22,7 +22,7 @@ import java.util.*;
 //External classes or components are discouraged from directly creating instances of User using the all-args constructor.
 // Instead, they are expected to use the builder pattern or other provided methods
 @NoArgsConstructor(access = AccessLevel.PROTECTED)//Hibernate/ORM compatibility
-//RM frameworks use reflection to instantiate objects and populate their fields. A no-args constructor, often with at least protected visibility, is needed for this purpose.
+//ORM frameworks use reflection to instantiate objects and populate their fields. A no-args constructor, often with at least protected visibility, is needed for this purpose.
 //Making the no-args constructor protected allows subclasses to call it
 //Inheritance is a common practice in JPA entities, and subclasses may need to initialize their state or invoke the no-args constructor during their own construction process
 //By setting the access level to protected, the class retains control over how it is instantiated. It signals that the no-args constructor is intended for use by subclasses and the ORM framework
